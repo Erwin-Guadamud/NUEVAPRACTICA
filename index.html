@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasarela de Pago - Payphone</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-store"></i> Mi Tienda Online</h1>
+            <p>Checkout seguro con Payphone</p>
+        </header>
+
+        <main class="main-content">
+            <div class="product-section">
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/200x200/4f46e5/ffffff?text=Producto" alt="Producto" class="product-image">
+                    <div class="product-info">
+                        <h3>Producto de Ejemplo</h3>
+                        <p class="product-description">Descripción del producto que se va a comprar</p>
+                        <div class="price">
+                            <span class="price-label">Precio:</span>
+                            <span class="price-amount" id="productPrice">$25.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checkout-section">
+                <div class="checkout-card">
+                    <h2><i class="fas fa-credit-card"></i> Información de Pago</h2>
+                    
+                    <form id="checkoutForm" class="checkout-form">
+                        <div class="form-group">
+                            <label for="customerName">Nombre Completo</label>
+                            <input type="text" id="customerName" name="customerName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="customerEmail">Correo Electrónico</label>
+                            <input type="email" id="customerEmail" name="customerEmail" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="customerPhone">Teléfono</label>
+                            <input type="tel" id="customerPhone" name="customerPhone" required>
+                        </div>
+
+                        <div class="order-summary">
+                            <h3>Resumen del Pedido</h3>
+                            <div class="summary-item">
+                                <span>Subtotal:</span>
+                                <span id="subtotal">$25.00</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>IVA (12%):</span>
+                                <span id="tax">$3.00</span>
+                            </div>
+                            <div class="summary-item total">
+                                <span>Total:</span>
+                                <span id="total">$28.00</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="pay-button" id="payButton">
+                            <i class="fas fa-lock"></i>
+                            Pagar con Payphone
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Procesando pago...</p>
+            </div>
+        </div>
+
+        <div class="modal" id="resultModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Resultado del Pago</h3>
+                    <button class="close-btn" id="closeModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="modalIcon"></div>
+                    <p id="modalMessage"></p>
+                    <div id="transactionDetails" class="transaction-details"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-primary" id="modalOkBtn">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="payphone-config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "payphone-checkout",
+  "version": "1.0.0",
+  "description": "Página web con integración de pasarela de pago Payphone",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server --port=3000 --open=/index.html",
+    "dev": "live-server --port=3000 --open=/index.html --watch=.",
+    "build": "echo 'Build completed'",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "payphone",
+    "payment",
+    "gateway",
+    "checkout",
+    "ecommerce"
+  ],
+  "author": "Tu Nombre",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "dependencies": {}
+}

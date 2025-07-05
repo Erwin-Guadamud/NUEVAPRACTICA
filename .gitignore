@@ -1,0 +1,32 @@
+# Archivos de configuración de desarrollo
+node_modules/
+package-lock.json
+
+# Archivos de log
+*.log
+npm-debug.log*
+
+# Archivos de entorno
+.env
+.env.local
+.env.production
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de IDE
+.vscode/settings.json
+.idea/
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Archivos de cache
+.cache/
+.parcel-cache/
+
+# Archivos de producción
+dist/
+build/
