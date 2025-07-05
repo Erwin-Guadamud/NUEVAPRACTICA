@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChicStore - Cajita Integrada Payphone</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        .content {
+            padding: 40px;
+        }
+        .product-section {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+        .product-image {
+            font-size: 8rem;
+            text-align: center;
+            color: #667eea;
+        }
+        .product-info h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .product-price {
+            font-size: 2.5rem;
+            color: #28a745;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .form-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .payment-section {
+            background: #fff;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+        }
+        .generate-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        .generate-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        .generate-button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .payphone-container {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px dashed #dee2e6;
+            border-radius: 10px;
+            background: #f8f9fa;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .payphone-container.active {
+            border-color: #00D4AA;
+            background: #f0fffe;
+        }
+        .status-message {
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .warning { background: #fff3cd; color: #856404; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        .loading {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @media (max-width: 768px) {
+            .product-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .product-image {
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛍️ ChicStore</h1>
+            <p>Cajita de Pagos Integrada con Payphone</p>
+        </header>
+        
+        <div class="content">
+            <!-- Producto -->
+            <div class="product-section">
+                <div class="product-image">👕</div>
+                <div class="product-info">
+                    <h2>Camiseta Artesanal Ecuatoriana</h2>
+                    <div class="product-price">$25.00</div>
+                    <p>Hermosa camiseta hecha a mano por artesanos ecuatorianos. 
+                    Diseño único que refleja la cultura y tradición del Ecuador. 
+                    100% algodón orgánico.</p>
+                </div>
+            </div>
+
+            <!-- Formulario -->
+            <div class="form-section">
+                <h3>📝 Datos de Facturación</h3>
+                <div class="form-group">
+                    <label for="customer-name">Nombre Completo</label>
+                    <input type="text" id="customer-name" value="Juan Pérez" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customer-email">Email</label>
+                    <input type="email" id="customer-email" value="juan@example.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customer-phone">Teléfono</label>
+                    <input type="tel" id="customer-phone" value="0999999999" required>
+                </div>
+            </div>
+
+            <!-- Sección de Pago -->
+            <div class="payment-section">
+                <h3>💳 Pago con Payphone</h3>
+                <p>Haz clic para generar la cajita de pagos integrada</p>
+                
+                <button id="generate-button" class="generate-button">
+                    🛒 Generar Cajita de Payphone
+                </button>
+
+                <div id="status-container"></div>
+
+                <!-- Loading -->
+                <div id="loading" class="loading">
+                    <div class="spinner"></div>
+                    <p>Cargando cajita de pagos...</p>
+                </div>
+
+                <!-- Contenedor de la Cajita -->
+                <div id="payphone-container" class="payphone-container">
+                    <p style="color: #6c757d; margin: 0;">
+                        La cajita de Payphone aparecerá aquí
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuración de Payphone
+        const PAYPHONE_CONFIG = {
+            token: 'f6YRPwZvLbU_-PyyZatgWqSqmsST6A-6tmHM5n9NAYLsRPrl3s0W0i72OQFi1dZjIpqHEIeLHLzAJCsGw7xofkwdg7f0a3sO0-sLaJucEDZTpSiY8-t4zvP9-Ga55EIuI8uHYNHBSAHStONeDuvfZiHw6MwmwZuU0LkkKRn_G4NY1ZF89iEZr34QdToTHrWvZuJcT0pZeLBFXzqwNkRPfrx6eyJKzmsEcbDyjy-qu7eVrgMo0lcvyg6YcvXilLcqDlLKiZ7xAC76_y2o07RhEML1OyqLh2KY_45iXuzMqMbGbQ0iYjFg6Mc8xRn59hzRGC1MqSV4JOKUiYJzdyAD3TgcBUg',
+            storeId: 'a94cb5c4-e43c-4297-aade-d556bcc9a519',
+            identifier: 'IiihzaMC3kKwvrfQVyRslA',
+            amount: 25.00,
+            currency: 'USD',
+            urlReturn: window.location.origin + '/success.html',
+            urlCancel: window.location.origin + '/cancel.html'
+        };
+
+        let sdkLoaded = false;
+        let boxGenerated = false;
+
+        // Funciones de utilidad
+        function showStatus(message, type) {
+            const container = document.getElementById('status-container');
+            container.innerHTML = `<div class="status-message ${type}">${message}</div>`;
+            console.log(`[${type}] ${message}`);
+        }
+
+        function toggleLoading(show) {
+            document.getElementById('loading').style.display = show ? 'flex' : 'none';
+        }
+
+        function updateButton(text, disabled = false) {
+            const button = document.getElementById('generate-button');
+            button.textContent = text;
+            button.disabled = disabled;
+        }
+
+        // Cargar CSS del SDK
+        function loadPayphoneCSS() {
+            return new Promise((resolve) => {
+                const existingLink = document.querySelector('link[href*="payphone-payment-box.css"]');
+                if (existingLink) {
+                    resolve();
+                    return;
+                }
+
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = 'https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.css';
+                link.onload = resolve;
+                link.onerror = resolve; // Continuar aunque falle el CSS
+                document.head.appendChild(link);
+            });
+        }
+
+        // Cargar JavaScript del SDK
+        function loadPayphoneJS() {
+            return new Promise((resolve, reject) => {
+                if (typeof PPaymentButtonBox !== 'undefined') {
+                    resolve();
+                    return;
+                }
+
+                const script = document.createElement('script');
+                script.src = 'https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js';
+                script.onload = () => {
+                    console.log('✅ SDK de Payphone cargado');
+                    sdkLoaded = true;
+                    resolve();
+                };
+                script.onerror = () => {
+                    console.error('❌ Error cargando SDK');
+                    reject(new Error('Error cargando SDK de Payphone'));
+                };
+                document.head.appendChild(script);
+            });
+        }
+
+        // Crear la cajita de Payphone
+        function createPayphoneBox() {
+            try {
+                const container = document.getElementById('payphone-container');
+                
+                // Verificar que el SDK esté disponible
+                if (typeof PPaymentButtonBox === 'undefined') {
+                    throw new Error('SDK de Payphone no está disponible');
+                }
+
+                // Limpiar contenedor
+                container.innerHTML = '';
+                container.classList.add('active');
+
+                // Configuración de la cajita
+                const paymentConfig = {
+                    token: PAYPHONE_CONFIG.token,
+                    storeId: PAYPHONE_CONFIG.storeId,
+                    container: 'payphone-container',
+                    payment: {
+                        amount: PAYPHONE_CONFIG.amount,
+                        storeId: PAYPHONE_CONFIG.storeId,
+                        currency: PAYPHONE_CONFIG.currency,
+                        identifier: PAYPHONE_CONFIG.identifier,
+                        urlReturn: PAYPHONE_CONFIG.urlReturn,
+                        urlCancel: PAYPHONE_CONFIG.urlCancel,
+                        lang: 'es',
+                        sandbox: false
+                    }
+                };
+
+                console.log('🔧 Configuración de la cajita:', paymentConfig);
+
+                // Crear la cajita
+                const box = new PPaymentButtonBox(paymentConfig);
+
+                showStatus('✅ ¡Cajita de Payphone creada exitosamente!', 'success');
+                updateButton('🔄 Regenerar Cajita');
+                boxGenerated = true;
+
+                return true;
+
+            } catch (error) {
+                console.error('❌ Error creando cajita:', error);
+                showStatus(`❌ Error: ${error.message}`, 'error');
+                
+                // Mostrar mensaje de error en el contenedor
+                const container = document.getElementById('payphone-container');
+                container.innerHTML = `
+                    <div style="text-align: center; color: #721c24;">
+                        <h4>❌ Error cargando cajita</h4>
+                        <p>${error.message}</p>
+                        <p><small>Verifica tu conexión a internet</small></p>
+                    </div>
+                `;
+                
+                return false;
+            }
+        }
+
+        // Función principal para generar la cajita
+        async function generatePayphoneBox() {
+            // Validar formulario
+            const customerName = document.getElementById('customer-name').value.trim();
+            const customerEmail = document.getElementById('customer-email').value.trim();
+            const customerPhone = document.getElementById('customer-phone').value.trim();
+
+            if (!customerName || !customerEmail || !customerPhone) {
+                showStatus('❌ Por favor completa todos los campos', 'error');
+                return;
+            }
+
+            try {
+                updateButton('⏳ Cargando...', true);
+                toggleLoading(true);
+                showStatus('🔄 Cargando SDK de Payphone...', 'info');
+
+                // Cargar CSS y JS del SDK
+                await loadPayphoneCSS();
+                await loadPayphoneJS();
+
+                // Esperar un momento para que el SDK se inicialice
+                setTimeout(() => {
+                    toggleLoading(false);
+                    
+                    if (createPayphoneBox()) {
+                        console.log('🎉 ¡Cajita generada exitosamente!');
+                    } else {
+                        updateButton('🛒 Reintentar', false);
+                    }
+                }, 1000);
+
+            } catch (error) {
+                toggleLoading(false);
+                updateButton('🛒 Reintentar', false);
+                showStatus(`❌ Error cargando SDK: ${error.message}`, 'error');
+                console.error('Error completo:', error);
+            }
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 Página cargada');
+            console.log('🔧 Configuración:', PAYPHONE_CONFIG);
+
+            const generateButton = document.getElementById('generate-button');
+            generateButton.addEventListener('click', () => {
+                if (boxGenerated) {
+                    // Regenerar cajita
+                    boxGenerated = false;
+                    const container = document.getElementById('payphone-container');
+                    container.innerHTML = '<p style="color: #6c757d; margin: 0;">La cajita de Payphone aparecerá aquí</p>';
+                    container.classList.remove('active');
+                    updateButton('🛒 Generar Cajita de Payphone', false);
+                    document.getElementById('status-container').innerHTML = '';
+                } else {
+                    generatePayphoneBox();
+                }
+            });
+        });
+
+        // Manejo de errores globales
+        window.addEventListener('error', (event) => {
+            console.error('❌ Error global:', event.error);
+            if (event.error && event.error.message.includes('PPaymentButtonBox')) {
+                showStatus('⚠️ Error del SDK de Payphone. Reintenta en unos segundos.', 'warning');
+            }
+        });
+    </script>
+</body>
+</html>
