@@ -185,6 +185,33 @@ Para desplegar en producción:
 3. Implementa el endpoint para webhook
 4. Sube los archivos a tu servidor web
 
+## 🌐 Despliegue
+
+### GitHub Pages
+Este proyecto está configurado para desplegarse automáticamente en GitHub Pages:
+
+1. Haz push a la rama `main` o `master`
+2. GitHub Actions se encargará del despliegue automático
+3. Tu sitio estará disponible en: `https://tu-usuario.github.io/payphone-checkout/`
+
+### Vercel (Recomendado)
+Para un despliegue rápido y profesional:
+
+1. Conecta tu repositorio en [vercel.com](https://vercel.com)
+2. Vercel detectará automáticamente la configuración
+3. Tu sitio estará disponible con SSL en minutos
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/tu-usuario/payphone-checkout)
+
+### Netlify
+También puedes usar Netlify:
+
+1. Conecta tu repositorio en [netlify.com](https://netlify.com)
+2. No requiere configuración adicional
+3. Despliegue automático con cada push
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/tu-usuario/payphone-checkout)
+
 ## 🎯 Demo en Vivo
 
 🔗 **[Ver Demo](https://tu-usuario.github.io/payphone-checkout/)**
